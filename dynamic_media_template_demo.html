@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AEM Dynamic Media Banner Generator</title>
+    <!-- Microsoft font: Segoe UI -->
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #23272f;
+            color: #e4e6eb;
+            margin: 2em;
+        }
+        .container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .main-flex {
+            display: flex;
+            flex-direction: row;
+            gap: 2.5em;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .form-panel {
+            flex: 0 0 370px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f1f2f6 100%);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(180,180,180,0.10);
+            padding: 2em 2em 1.5em 2em;
+            min-width: 320px;
+            max-width: 400px;
+            margin-top: 2em;
+            margin-bottom: 2em;
+        }
+        .images-panel {
+            flex: 1 1 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em;
+            align-items: flex-start;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(180,180,180,0.07);
+            padding: 1.5em;
+            min-width: 220px;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            position: relative;
+        }
+        .banner-card {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+        .banner-img {
+            margin: 0;
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            border: 2px solid #d1d5db;
+            box-shadow: 0 4px 16px rgba(180,180,180,0.13);
+            background: #f7f7f9;
+        }
+        .img-label {
+            display: block;
+            font-size: 1em;
+            color: #444;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .button-row {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+            margin-top: 1em;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        h1 {
+            color: #222;
+            font-weight: 700;
+            margin-bottom: 1em;
+        }
+        form {
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin: 0.7em 0 0.2em;
+            font-weight: 500;
+            color: #444;
+        }
+        input, select, textarea {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.5em;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: #f9fafb;
+            color: #222;
+            margin-bottom: 0.2em;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        textarea {
+            min-height: 2.5em;
+            resize: vertical;
+            height: auto;
+        }
+        button {
+            background: #444950;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1em;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(68,73,80,0.10);
+        }
+        button:hover {
+            background: #23272f;
+        }
+        @media (max-width: 1100px) {
+            .main-flex {
+                flex-direction: column;
+                gap: 1.5em;
+            }
+            .images-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-flex">
+            <div class="form-panel">
+                <h1>AEM Dynamic Media Banner Generator</h1>
+                <form id="paramsForm">
+                    <div style="display: flex; flex-direction: column; gap: 0.7em;">
+                        
+                        <div>
+                            <label for="head">Headline:</label>
+                            <textarea id="head" rows="2" style="resize:vertical; width:100%; max-width:600px; padding:0.5em; border:1px solid #d1d5db; border-radius:4px; font-size:1em; background:#f9fafb; color:#222; margin-bottom:0.2em; box-sizing:border-box; min-height:2.5em;">Save 65% on Creative Cloud All Apps with student discount.</textarea>
+                        </div>
+                        <div>
+                            <label for="sub_head">Sub Headline:</label>
+                            <input type="text" id="sub_head" value="First year only. Terms apply.">
+                        </div>
+                        <div>
+                            <label for="cta">Call to Action:</label>
+                            <input type="text" id="cta" value="Buy Now">
+                        </div>
+                        <div style="display:none;">
+                            <label for="legal">Legal:</label>
+                            <input type="text" id="legal" value="Offer good thru 12/31/2025">
+                        </div>
+                        <div>
+                            <label for="screen">Image:</label>
+                            <select id="screen">
+                                <option value="Cherneff/ValueforMoney1" selected>Designers</option>
+                                <option value="Cherneff/ValueforMoney3">Designers 2</option>
+                                <option value="Cherneff/Reliability and Trust KV">Illustrators</option>
+                                <option value="Cherneff/Reliability%20and%20Trust1">Cloud Documents</option>
+                                
+                            </select>
+                        </div>
+                        <div>
+                            <label for="partner_logo">Partner Logo:</label>
+                            <select id="partner_logo">
+                                <option value="Cherneff/blank-1" selected></option>
+                                <option value="Cherneff/CDW-logo">CDW</option>
+                                <option value="Cherneff/SHI_logo_MonoWhite_digital">SHI</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="offerText">Offer Text:</label>
+                            <input type="text" id="offerText" name="offerText" value="">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit">Update Images</button>
+                        <button type="button" id="submitApprovalBtn">Submit for Approval</button>
+                        <button type="button" id="downloadBtn">Download Images</button>
+                        <button type="button" id="resetBtn">Reset</button>
+                    </div>
+                </form>
+            </div>
+            <div class="images-panel">
+                <div class="banner-card">
+                    <span class="img-label">970x250 - Web Hero</span>
+                    <img id="bannerImg2" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/970x250?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
+                </div>
+                 <div class="banner-card">
+                    <span class="img-label">300x250 - Social 1</span>
+                    <img id="bannerImg1" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/300x2501?$layer_1_src=Cherneff/300x250-1&$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
+                </div>
+                
+                <div class="banner-card">
+                    <span class="img-label">160x600 - Web Side Rail</span>
+                    <img id="bannerImg3" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/160x600-2?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
+                </div>
+                 <div class="banner-card">
+                    <span class="img-label">300x600 - Social 2</span>
+                    <img id="bannerImg5" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/300x600-1?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
+                </div>
+                <div class="banner-card">
+                    <span class="img-label">728x90 - Web Banner</span>
+                    <img id="bannerImg4" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/728x90-2?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    <!-- Modal Dialog -->
+    <div id="approvalModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(230,0,38,0.15); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(230,0,38,0.18); padding:2em 2.5em; max-width:90vw; text-align:center; border:2px solid #e60026;">
+            <h2 style="color:#e60026; margin-bottom:1em;">Submitted for Review</h2>
+            <p style="font-size:1.1em; color:#323130; margin-bottom:2em;">
+                Your banner has been sent for review and you will be notified of the status within 24 hrs.
+            </p>
+            <button id="closeModalBtn">Close</button>
+        </div>
+    </div>
+    <!-- CTA Limit Modal -->
+    <div id="ctaLimitModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(230,0,38,0.15); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(230,0,38,0.18); padding:2em 2.5em; max-width:90vw; text-align:center; border:2px solid #e60026;">
+            <h2 style="color:#e60026; margin-bottom:1em;">Character Limit Exceeded</h2>
+            <p style="font-size:1.1em; color:#323130; margin-bottom:2em;">
+                The Call to Action field cannot exceed 15 characters.
+            </p>
+            <button id="closeCtaLimitBtn">Close</button>
+        </div>
+    </div>
+    <!-- Image Modal -->
+    <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:3000; align-items:flex-start; justify-content:center; overflow:auto;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18); padding:2em 2.5em; max-width:95vw; min-width:60vw; min-height:80vh; overflow:auto; text-align:center; border:2px solid #e60026;">
+            <h2 style="color:#e60026; margin-bottom:1em;">Banner Previews</h2>
+            <div id="modalImages" style="display:flex; flex-direction:column; gap:2em; align-items:center; width:100%;">
+                <img id="modalBannerImg2" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg" style="width:auto; height:auto; max-width:100%; display:block;">
+                
+                <img id="modalBannerImg3" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg4" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg5" style="width:auto; height:auto; max-width:100%; display:block;">
+            </div>
+            <button id="closeImageModalBtn" style="margin-top:2em;">Close</button>
+        </div>
+    </div>
+    <!-- Single Image Modal -->
+    <div id="singleImageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:5000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:12px; box-shadow:0 8px 32px rgba(230,0,38,0.18); padding:2em; max-width:95vw; max-height:95vh; display:flex; flex-direction:column; align-items:center;">
+            <span id="modalImgLabel" class="img-label" style="margin-bottom:1em;"></span>
+            <img id="modalPreviewImg" style="max-width:90vw; max-height:80vh; border:3px solid #e60026; box-shadow:0 4px 16px rgba(230,0,38,0.18); background:#fff;" />
+            <div style="display:flex; gap:1em; margin-top:2em;">
+                <button id="downloadSingleImageBtn">Download</button>
+                <button id="closeSingleImageModalBtn">Close</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('paramsForm');
+        const baseUrl = "https://s7d1.scene7.com/is/image/Cherneff/Test-1";
+        const downloadBtn = document.getElementById('downloadBtn');
+        const submitApprovalBtn = document.getElementById('submitApprovalBtn');
+        const approvalModal = document.getElementById('approvalModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const ctaInput = document.getElementById('cta');
+        const ctaLimitModal = document.getElementById('ctaLimitModal');
+        const closeCtaLimitBtn = document.getElementById('closeCtaLimitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const offerTextValue = document.getElementById('offerText') ? document.getElementById('offerText').value : '';
+            const offerParam = offerTextValue.trim() === '' ? '1' : '0';
+            const params = [
+                ['$screen', document.getElementById('screen').value],
+                ['$head', document.getElementById('head').value],
+                ['$sub_head', document.getElementById('sub_head').value],
+                ['$cta', document.getElementById('cta').value],
+                ['$legal', document.getElementById('legal').value],
+                ['$partner_logo', document.getElementById('partner_logo').value],
+                ['$wid', document.getElementById('wid') ? document.getElementById('wid').value : '2000'],
+                ['$hei', document.getElementById('hei') ? document.getElementById('hei').value : '2000'],
+                ['$qlt', document.getElementById('qlt') ? document.getElementById('qlt').value : '100'],
+                ['$fit', document.getElementById('fit') ? document.getElementById('fit').value : 'constrain'],
+                ['$offerText', offerTextValue], // Always include offerText, even if empty
+                ['$offer', offerParam]
+            ];
+            let query = params
+                .filter(([k, v]) => k === '$offerText' || (v !== undefined && v !== null && v.toString().trim() !== ''))
+                .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
+                .join('&');
+            // Update new images in the images panel
+            document.getElementById('bannerImg1').src = `https://s7d1.scene7.com/is/image/Cherneff/300x2501?$layer_1_src=Cherneff/300x250-1&${query}`;
+            document.getElementById('bannerImg2').src = `https://s7d1.scene7.com/is/image/Cherneff/970x250?${query}`;
+            document.getElementById('bannerImg3').src = `https://s7d1.scene7.com/is/image/Cherneff/160x600-2?${query}`;
+            document.getElementById('bannerImg4').src = `https://s7d1.scene7.com/is/image/Cherneff/728x90-2?${query}`;
+            document.getElementById('bannerImg5').src = `https://s7d1.scene7.com/is/image/Cherneff/300x600-1?${query}`;
+        });
+        downloadBtn.addEventListener('click', function() {
+            // Download the current image as a file using fetch and blob to force browser download
+            fetch(img.src, {mode: 'cors'})
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'banner-image.jpg';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert('Failed to download image.');
+                });
+        });
+
+        // Approval modal logic (directly in main script block, no duplicate declarations)
+        if (submitApprovalBtn && approvalModal) {
+            submitApprovalBtn.addEventListener('click', function() {
+                approvalModal.style.display = 'flex';
+            });
+        }
+        if (closeModalBtn && approvalModal) {
+            closeModalBtn.addEventListener('click', function() {
+                approvalModal.style.display = 'none';
+            });
+        }
+        if (approvalModal) {
+            approvalModal.addEventListener('click', function(e) {
+                if (e.target === approvalModal) {
+                    approvalModal.style.display = 'none';
+                }
+            });
+        }
+
+        ctaInput.addEventListener('input', function() {
+            if (ctaInput.value.length > 15) {
+                ctaLimitModal.style.display = 'flex';
+                ctaInput.value = ctaInput.value.slice(0, 15);
+            }
+        });
+
+        closeCtaLimitBtn.addEventListener('click', function() {
+            ctaLimitModal.style.display = 'none';
+        });
+
+        resetBtn.addEventListener('click', function() {
+            // Set default values
+            if (document.getElementById('bannerSize')) document.getElementById('bannerSize').value = "540x200";
+            document.getElementById('head').value = "Save 65% on Creative Cloud All Apps with student discount.";
+            document.getElementById('sub_head').value = "First year only. Terms apply.";
+            document.getElementById('cta').value = "Buy Now";
+            document.getElementById('legal').value = "Offer good thru 12/31/2025";
+            document.getElementById('screen').value = "Cherneff/ValueforMoney1";
+            document.getElementById('partner_logo').value = "Cherneff/blank-1";
+            document.getElementById('offerText').value = "";
+            // Restore images to their original default URLs (matching initial state)
+            document.getElementById('bannerImg1').src = "https://s7d1.scene7.com/is/image/Cherneff/300x2501?$layer_1_src=Cherneff/300x250-1&$head=Save%2065%25%20on%20Creative%20Cloud%20%5Cline%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.%20&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg2').src = "https://s7d1.scene7.com/is/image/Cherneff/970x250?$head=Save%2065%25%20on%20Creative%20Cloud%5Cline%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.%20&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offer=1&$offerText=&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg3').src = "https://s7d1.scene7.com/is/image/Cherneff/160x600-2?$head=Save%2065%25%5Cline%20on%20All%5Cline%20Apps%20with%5Cline%20student%5Cline%20%20discount.%20&$sub_head=First%20year%20only.%5Cline%20Terms%20Apply.&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg4').src = "https://s7d1.scene7.com/is/image/Cherneff/728x90-2?$head=Save%2065%25%20on%20Creative%20Cloud%20%5Cline%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offer=1&$offerText=&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg5').src = "https://s7d1.scene7.com/is/image/Cherneff/300x600-1?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$offer=1&$offerText=&$partner_logo=Cherneff/blank-1&wid=2000&hei=2000&qlt=100&fit=constrain";
+        });
+        // Modal close button
+        document.getElementById('closeImageModalBtn').onclick = function() {
+            document.getElementById('imageModal').style.display = 'none';
+        };
+        // Optional: Close modal when clicking outside the dialog
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === document.getElementById('imageModal')) {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+        });
+        // Modal logic for single image preview
+        const singleImageModal = document.getElementById('singleImageModal');
+        const modalPreviewImg = document.getElementById('modalPreviewImg');
+        const closeSingleImageModalBtn = document.getElementById('closeSingleImageModalBtn');
+        const downloadSingleImageBtn = document.getElementById('downloadSingleImageBtn');
+        const modalImgLabel = document.getElementById('modalImgLabel');
+
+        function attachSingleImageModalListeners() {
+            [1,2,3,4,5].forEach(function(i) {
+                var imgEl = document.getElementById('bannerImg'+i);
+                var labelEl = imgEl && imgEl.previousElementSibling && imgEl.previousElementSibling.classList.contains('img-label') ? imgEl.previousElementSibling : null;
+                if (imgEl) {
+                    imgEl.onclick = function() {
+                        modalPreviewImg.src = this.src;
+                        modalImgLabel.textContent = labelEl ? labelEl.textContent : '';
+                        singleImageModal.style.display = 'flex';
+                    };
+                }
+            });
+        }
+        attachSingleImageModalListeners();
+        if (closeSingleImageModalBtn) {
+            closeSingleImageModalBtn.onclick = function() {
+                singleImageModal.style.display = 'none';
+            };
+        }
+        if (singleImageModal) {
+            singleImageModal.addEventListener('click', function(e) {
+                if (e.target === singleImageModal) {
+                    singleImageModal.style.display = 'none';
+                }
+            });
+        }
+        if (downloadSingleImageBtn && modalPreviewImg) {
+            downloadSingleImageBtn.onclick = function() {
+                const imgUrl = modalPreviewImg.src;
+                fetch(imgUrl, {mode: 'cors'})
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = 'banner-image.jpg';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch(() => {
+                        alert('Failed to download image.');
+                    });
+            };
+        }
+    </script>
+</body>
+</html>
