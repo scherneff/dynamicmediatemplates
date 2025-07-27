@@ -212,7 +212,7 @@
             <div class="images-panel">
                 <div class="banner-card">
                     <span class="img-label">970x250 - Web Hero</span>
-                    <img id="bannerImg2" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/970x250?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
+                    <img id="bannerImg2" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/970x250?$head=\slmult1\sl-200Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain" />
                 </div>
                  <div class="banner-card">
                     <span class="img-label">300x250 - Social 1</span>
@@ -297,11 +297,13 @@
             e.preventDefault();
             const offerTextValue = document.getElementById('offerText') ? document.getElementById('offerText').value : '';
             const offerParam = offerTextValue.trim() === '' ? '1' : '0';
+            const headValue = '\\slmult1\\sl-200' + document.getElementById('head').value;
+            const ctaValue = '\\copyfit32' + document.getElementById('cta').value;
             const params = [
                 ['$screen', document.getElementById('screen').value],
-                ['$head', document.getElementById('head').value],
+                ['$head', headValue],
                 ['$sub_head', document.getElementById('sub_head').value],
-                ['$cta', document.getElementById('cta').value],
+                ['$cta', ctaValue],
                 ['$legal', document.getElementById('legal').value],
                 ['$partner_logo', document.getElementById('partner_logo').value],
                 ['$wid', document.getElementById('wid') ? document.getElementById('wid').value : '2000'],
@@ -382,11 +384,11 @@
             document.getElementById('partner_logo').value = "Cherneff/blank-1";
             document.getElementById('offerText').value = "";
             // Restore images to their original default URLs (matching initial state)
-            document.getElementById('bannerImg1').src = "https://s7d1.scene7.com/is/image/Cherneff/300x2501?$layer_1_src=Cherneff/300x250-1&$head=Save%2065%25%20on%20Creative%20Cloud%20%5Cline%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.%20&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain";
-            document.getElementById('bannerImg2').src = "https://s7d1.scene7.com/is/image/Cherneff/970x250?$head=Save%2065%25%20on%20Creative%20Cloud%5Cline%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.%20&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offer=1&$offerText=&wid=2000&hei=2000&qlt=100&fit=constrain";
-            document.getElementById('bannerImg3').src = "https://s7d1.scene7.com/is/image/Cherneff/160x600-2?$head=Save%2065%25%5Cline%20on%20All%5Cline%20Apps%20with%5Cline%20student%5Cline%20%20discount.%20&$sub_head=First%20year%20only.%5Cline%20Terms%20Apply.&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain";
-            document.getElementById('bannerImg4').src = "https://s7d1.scene7.com/is/image/Cherneff/728x90-2?$head=Save%2065%25%20on%20Creative%20Cloud%20%5Cline%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offer=1&$offerText=&wid=2000&hei=2000&qlt=100&fit=constrain";
-            document.getElementById('bannerImg5').src = "https://s7d1.scene7.com/is/image/Cherneff/300x600-1?$head=Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=Buy%20Now&$screen=Cherneff/ValueforMoney1&$offer=1&$offerText=&$partner_logo=Cherneff/blank-1&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg1').src = "https://s7d1.scene7.com/is/image/Cherneff/300x2501?$layer_1_src=Cherneff/300x250-1&$head=\\slmult1\\sl-200Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$cta=\\copyfit32Buy%20Now&$sub_head=First%20year%20only.%20Terms%20apply.%20&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg2').src = "https://s7d1.scene7.com/is/image/Cherneff/970x250?$head=\\slmult1\\sl-200Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.%20&$cta=\\copyfit32Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offer=1&$offerText=&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg3').src = "https://s7d1.scene7.com/is/image/Cherneff/160x600-2?$head=\\slmult1\\sl-200Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%5Cline%20Terms%20apply.&$cta=\\copyfit32Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offerText=&$offer=1&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg4').src = "https://s7d1.scene7.com/is/image/Cherneff/728x90-2?$head=\\slmult1\\sl-200Save%2065%25%20on%20Creative%20Cloud%20%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=\\copyfit32Buy%20Now&$screen=Cherneff/ValueforMoney1&$partner_logo=Cherneff/blank-1&$offer=1&$offerText=&wid=2000&hei=2000&qlt=100&fit=constrain";
+            document.getElementById('bannerImg5').src = "https://s7d1.scene7.com/is/image/Cherneff/300x600-1?$head=\\slmult1\\sl-200Save%2065%25%20on%20Creative%20Cloud%20All%20Apps%20with%20student%20discount.&$sub_head=First%20year%20only.%20Terms%20apply.&$cta=\\copyfit32Buy%20Now&$screen=Cherneff/ValueforMoney1&$offer=1&$offerText=&$partner_logo=Cherneff/blank-1&wid=2000&hei=2000&qlt=100&fit=constrain";
         });
         // Modal close button
         document.getElementById('closeImageModalBtn').onclick = function() {
@@ -451,6 +453,11 @@
                     });
             };
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (resetBtn) {
+                resetBtn.click();
+            }
+        });
     </script>
 </body>
 </html>
