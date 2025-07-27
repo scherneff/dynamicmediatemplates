@@ -325,22 +325,28 @@
             document.getElementById('bannerImg5').src = `https://s7d1.scene7.com/is/image/Cherneff/300x600-1?${query}`;
         });
         downloadBtn.addEventListener('click', function() {
-            // Download the current image as a file using fetch and blob to force browser download
-            fetch(img.src, {mode: 'cors'})
-                .then(response => response.blob())
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'banner-image.jpg';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                })
-                .catch(() => {
-                    alert('Failed to download image.');
-                });
+            // Download all banner images
+            const imageIds = ['bannerImg1', 'bannerImg2', 'bannerImg3', 'bannerImg4', 'bannerImg5'];
+            imageIds.forEach(function(id, idx) {
+                const img = document.getElementById(id);
+                if (img && img.src) {
+                    fetch(img.src, {mode: 'cors'})
+                        .then(response => response.blob())
+                        .then(blob => {
+                            const url = URL.createObjectURL(blob);
+                            const link = document.createElement('a');
+                            link.href = url;
+                            link.download = `banner-image-${idx+1}.jpg`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            URL.revokeObjectURL(url);
+                        })
+                        .catch(() => {
+                            alert('Failed to download image: ' + img.src);
+                        });
+                }
+            });
         });
 
         // Approval modal logic (directly in main script block, no duplicate declarations)
