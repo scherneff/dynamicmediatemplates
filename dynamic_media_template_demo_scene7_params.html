@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Banner Generator </title>
+    <!-- Microsoft font: Segoe UI -->
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #23272f;
+            color: #e4e6eb;
+            margin: 2em;
+        }
+        .container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .main-flex {
+            display: flex;
+            flex-direction: row;
+            gap: 2.5em;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .form-panel {
+            flex: 0 0 370px;
+            background: linear-gradient(135deg, #f9fafb 0%, #f1f2f6 100%);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(180,180,180,0.10);
+            padding: 2em 2em 1.5em 2em;
+            min-width: 320px;
+            max-width: 400px;
+            margin-top: 2em;
+            margin-bottom: 2em;
+        }
+        .images-panel {
+            flex: 1 1 0;
+            display: flex;
+            /* center the single image inside the panel */
+            align-items: center;
+            justify-content: center;
+            gap: 1.5em;
+            background: #f0f0f0; /* light gray background for the image window */
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(180,180,180,0.07);
+            padding: 1.5em;
+            min-width: 220px;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            position: relative;
+            overflow: auto; /* allow scrolling when image is larger than panel */
+        }
+        .banner-card {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+        .banner-img {
+            margin: 0;
+            display: block;
+            /* show the image at its intrinsic pixel size */
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            margin: 0 auto; /* center image horizontally */
+            border: 2px solid #d1d5db;
+            box-shadow: 0 4px 16px rgba(180,180,180,0.13);
+            background: #f7f7f9;
+        }
+        .img-label {
+            display: block;
+            font-size: 1em;
+            color: #444;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .brand-logo {
+            width: 140px;
+            height: auto;
+            display: block;
+            margin-bottom: 0.25em;
+        }
+        /* smaller heading for the form panel so logo reads larger in comparison */
+        .form-panel h1 {
+            font-size: 1.05rem; /* ~17px */
+            margin-bottom: 0.25em;
+            color: #222;
+            font-weight: 700;
+            text-align: center;
+        }
+        .button-row {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+            margin-top: 1em;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        h1 {
+            color: #222;
+            font-weight: 700;
+            margin-bottom: 1em;
+        }
+        form {
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin: 0.7em 0 0.2em;
+            font-weight: 500;
+            color: #444;
+        }
+        input, select, textarea {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.5em;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1em;
+            background: #f9fafb;
+            color: #222;
+            margin-bottom: 0.2em;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        textarea {
+            min-height: 2.5em;
+            resize: vertical;
+            height: auto;
+        }
+        button {
+            background: #444950;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1em;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(68,73,80,0.10);
+        }
+        button:hover {
+            background: #23272f;
+        }
+        @media (max-width: 1100px) {
+            .main-flex {
+                flex-direction: column;
+                gap: 1.5em;
+            }
+            .images-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-flex">
+            <div class="form-panel">
+                <div style="display:flex; flex-direction:column; align-items:center; gap:0.25em; margin-bottom:0.75em;">
+                    <img class="brand-logo" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" />
+                    <h1 style="margin:0; text-align:center;">Banner Generator</h1>
+                </div>
+                <form id="paramsForm">
+                    <!-- language selector removed per user request -->
+                    <div style="display: flex; flex-direction: column; gap: 0.7em;">
+
+                        <div>
+                            <label for="searchTerm">Search Term:</label>
+                            <input type="text" id="searchTerm" value="Search Term [Market]">
+                        </div>
+                        <div>
+                            <label for="textBefore">Text Before Blue Text:</label>
+                            <input type="text" id="textBefore" value="Lorem ipsum ">
+                        </div>
+                        <div>
+                            <label for="blueText">Blue Text:</label>
+                            <input type="text" id="blueText" value="dolor">
+                        </div>
+                        <div>
+                            <label for="textAfter">Text After Blue Text:</label>
+                            <input type="text" id="textAfter" value=" sit amet consectetur">
+                        </div>
+                        <div>
+                            <label for="signals">Signals (comma-separated):</label>
+                            <input type="text" id="signals" value="age:21-40, location:Chicago, Irrelevant signal">
+                        </div>
+                        <div>
+                            <label for="businessTag">Business Sponsor Tag:</label>
+                            <select id="businessTag">
+                                <option value="0" selected>On</option>
+                                <option value="1">Off</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="image">Image:</label>
+                            <select id="image">
+                                <option value="Cherneff/GO129HVS" selected>Option 1</option>
+                                <option value="Cherneff/GO129DLG">Option 2</option>
+                                <option value="Cherneff/GO129IEY">Option 3</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="wid">Size</label>
+                            <select id="wid">
+                                <option value="500">Small (500x500)</option>
+                                <option value="750" selected>Med (750x750)</option>
+                                <option value="900">Large (900x900)</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="button-row">
+                        <button type="submit">Update Images</button>
+                        <button type="button" id="submitApprovalBtn">Submit for Approval</button>
+                        <button type="button" id="downloadBtn">Download Image</button>
+                        <button type="button" id="resetBtn">Reset</button>
+                    </div>
+                </form>
+            </div>
+            <div class="images-panel">
+                <div class="banner-card">
+                    <span class="img-label">Web Banner VP1_0s_Static001_1x1_DGEN</span>
+                    <img id="bannerImg" class="banner-img" src="https://s7d1.scene7.com/is/image/Cherneff/Google%20Ads%20DMT2?$searchTerm=Search%20Term%20%5BMarket%5D&$textBefore=Lorem%20ipsum%20%5Csl-2300&$blueText=dolor&$textAfter=%20sit%20amet%20consectetur&$signal1=age:21-40&$signal2=location:Chicago&$irrelevantSignal=Irrelevant%20signal&$businessTag=0&$image=Cherneff/GO129HVS&wid=750" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Dialog -->
+    <div id="approvalModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(230,0,38,0.15); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(230,0,38,0.18); padding:2em 2.5em; max-width:90vw; text-align:center; border:2px solid #e60026;">
+            <h2 style="color:#e60026; margin-bottom:1em;">Submitted for Review</h2>
+            <p style="font-size:1.1em; color:#323130; margin-bottom:2em;">
+                Your banner has been sent for review and you will be notified of the status within 24 hrs.
+            </p>
+            <button id="closeModalBtn">Close</button>
+        </div>
+    </div>
+    <!-- CTA Limit Modal -->
+    <div id="ctaLimitModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(230,0,38,0.15); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(230,0,38,0.18); padding:2em 2.5em; max-width:90vw; text-align:center; border:2px solid #e60026;">
+            <h2 style="color:#e60026; margin-bottom:1em;">Character Limit Exceeded</h2>
+            <p style="font-size:1.1em; color:#323130; margin-bottom:2em;">
+                The Call to Action field cannot exceed 15 characters.
+            </p>
+            <button id="closeCtaLimitBtn">Close</button>
+        </div>
+    </div>
+    <!-- Image Modal -->
+    <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:3000; align-items:flex-start; justify-content:center; overflow:auto;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18); padding:2em 2.5em; max-width:95vw; min-width:60vw; min-height:80vh; overflow:auto; text-align:center; border:2px solid #e60026;">
+            <h2 style="color:#e60026; margin-bottom:1em;">Banner Previews</h2>
+            <div id="modalImages" style="display:flex; flex-direction:column; gap:2em; align-items:center; width:100%;">
+                <img id="modalBannerImg" style="width:auto; height:auto; max-width:100%; display:block;">
+            </div>
+            <button id="closeImageModalBtn" style="margin-top:2em;">Close</button>
+        </div>
+    </div>
+    <!-- Single Image Modal -->
+    <div id="singleImageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:5000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:12px; box-shadow:0 8px 32px rgba(230,0,38,0.18); padding:2em; max-width:95vw; max-height:95vh; display:flex; flex-direction:column; align-items:center;">
+            <span id="modalImgLabel" class="img-label" style="margin-bottom:1em;"></span>
+            <img id="modalPreviewImg" style="max-width:90vw; max-height:80vh; border:3px solid #e60026; box-shadow:0 4px 16px rgba(230,0,38,0.18); background:#fff;" />
+            <div style="display:flex; gap:1em; margin-top:2em;">
+                <button id="downloadSingleImageBtn">Download</button>
+                <button id="closeSingleImageModalBtn">Close</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('paramsForm');
+        const baseAssetPath = "https://s7d1.scene7.com/is/image/Cherneff/Google%20Ads%20DMT2"; // base used for previews
+        const downloadBtn = document.getElementById('downloadBtn');
+        const submitApprovalBtn = document.getElementById('submitApprovalBtn');
+        const approvalModal = document.getElementById('approvalModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const ctaInput = document.getElementById('cta');
+        const ctaLimitModal = document.getElementById('ctaLimitModal');
+        const closeCtaLimitBtn = document.getElementById('closeCtaLimitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+    const TEXTBEFORE_SUFFIX = "\\sl-2300"; // appended to textBefore values
+
+        function buildQueryFromForm() {
+            // Map form fields to the Scene7 parameter keys (include $ prefix when building the query)
+            const mapping = {
+                '$searchTerm':document.getElementById('searchTerm') && document.getElementById('searchTerm').value,
+                '$textBefore': document.getElementById('textBefore') && document.getElementById('textBefore').value,
+                '$blueText': document.getElementById('blueText') && document.getElementById('blueText').value,
+                '$textAfter': document.getElementById('textAfter') && document.getElementById('textAfter').value,
+                // Split the signals and map to their respective parameters
+                ...document.getElementById('signals').value.split(',').map((signal, index) => {
+                    const key = index === 0 ? '$signal1' : index === 1 ? '$signal2' : '$irrelevantSignal';
+                    return [key, signal.trim()];
+                }).reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {}),
+                '$businessTag': document.getElementById('businessTag') && document.getElementById('businessTag').value,
+                '$image': document.getElementById('image') && document.getElementById('image').value,
+                'wid': document.getElementById('wid') && document.getElementById('wid').value
+            };
+            // Append TEXTBEFORE_SUFFIX to the textBefore value for the generated query, but don't modify the visible input
+            if (mapping['$textBefore']) {
+                const v = String(mapping['$textBefore']);
+                mapping['$textBefore'] = v.endsWith(TEXTBEFORE_SUFFIX) ? v : (v + TEXTBEFORE_SUFFIX);
+            }
+            let pairs = [];
+            for (const k in mapping) {
+                const v = mapping[k];
+                if (v !== undefined && v !== null && v.toString().trim() !== '') {
+                    pairs.push(`${k}=${encodeURIComponent(v)}`);
+                }
+            }
+            return pairs.join('&');
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const query = buildQueryFromForm();
+            // Update the single preview image
+            const img = document.getElementById('bannerImg');
+            if (img) img.src = `${baseAssetPath}?${query}`;
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            // Download the single preview image as a file using fetch+blob to force browser download
+            const img = document.getElementById('bannerImg');
+            if (!img || !img.src) { alert('No image to download.'); return; }
+            fetch(img.src, {mode: 'cors'})
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'banner-image.jpg';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert('Failed to download image.');
+                });
+        });
+
+        if (submitApprovalBtn && approvalModal) {
+            submitApprovalBtn.addEventListener('click', function() {
+                approvalModal.style.display = 'flex';
+            });
+        }
+        if (closeModalBtn && approvalModal) {
+            closeModalBtn.addEventListener('click', function() {
+                approvalModal.style.display = 'none';
+            });
+        }
+        if (approvalModal) {
+            approvalModal.addEventListener('click', function(e) {
+                if (e.target === approvalModal) {
+                    approvalModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Keep reset behavior for these Scene7 params
+        resetBtn.addEventListener('click', function() {
+            document.getElementById('searchTerm').value = "Search Term [Market]";
+            // ensure textBefore has the required suffix
+            document.getElementById('textBefore').value = "Lorem ipsum ";
+            document.getElementById('blueText').value = "dolor";
+            document.getElementById('textAfter').value = " sit amet consectetur";
+            document.getElementById('signals').value = "age:21-40, location:Chicago, Irrelevant signal";
+            document.getElementById('businessTag').value = "0";
+            document.getElementById('image').value = "Cherneff/GO129HVS";
+            // reset wid to default Med (750)
+            if (document.getElementById('wid')) document.getElementById('wid').value = "750";
+            const query = buildQueryFromForm();
+            const img = document.getElementById('bannerImg');
+            if (img) img.src = `${baseAssetPath}?${query}`;
+        });
+
+        // Image modal & single image modal logic re-used from original
+        document.getElementById('closeImageModalBtn').onclick = function() {
+            document.getElementById('imageModal').style.display = 'none';
+        };
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === document.getElementById('imageModal')) {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+        });
+
+        const singleImageModal = document.getElementById('singleImageModal');
+        const modalPreviewImg = document.getElementById('modalPreviewImg');
+        const closeSingleImageModalBtn = document.getElementById('closeSingleImageModalBtn');
+        const downloadSingleImageBtn = document.getElementById('downloadSingleImageBtn');
+        const modalImgLabel = document.getElementById('modalImgLabel');
+
+        function attachSingleImageModalListeners() {
+            const imgEl = document.getElementById('bannerImg');
+            const labelEl = imgEl && imgEl.previousElementSibling && imgEl.previousElementSibling.classList.contains('img-label') ? imgEl.previousElementSibling : null;
+            if (imgEl) {
+                imgEl.style.cursor = 'pointer';
+                imgEl.addEventListener('click', function() {
+                    modalPreviewImg.src = this.src;
+                    // also set the modal image inside the larger preview area
+                    const modalBanner = document.getElementById('modalBannerImg');
+                    if (modalBanner) modalBanner.src = this.src;
+                    modalImgLabel.textContent = labelEl ? labelEl.textContent : '';
+                    singleImageModal.style.display = 'flex';
+                });
+            }
+        }
+        attachSingleImageModalListeners();
+        if (closeSingleImageModalBtn) {
+            closeSingleImageModalBtn.onclick = function() {
+                singleImageModal.style.display = 'none';
+            };
+        }
+        if (singleImageModal) {
+            singleImageModal.addEventListener('click', function(e) {
+                if (e.target === singleImageModal) {
+                    singleImageModal.style.display = 'none';
+                }
+            });
+        }
+        if (downloadSingleImageBtn && modalPreviewImg) {
+            downloadSingleImageBtn.onclick = function() {
+                const imgUrl = modalPreviewImg.src;
+                fetch(imgUrl, {mode: 'cors'})
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = 'banner-image.jpg';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch(() => {
+                        alert('Failed to download image.');
+                    });
+            };
+        }
+    </script>
+</body>
+</html>
