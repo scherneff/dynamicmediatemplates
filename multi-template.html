@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Microsoft Banner Generator</title>
+    <!-- Microsoft font: Segoe UI -->
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            /* Microsoft blue gradient background */
+            background: #fff;
+            color: #323130;
+            margin: 2em;
+        }
+        .container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .main-flex {
+            display: flex;
+            flex-direction: row;
+            gap: 2.5em;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .form-panel {
+            flex: 0 0 370px;
+            background: linear-gradient(135deg, #eaf6fb 0%, #f4faff 100%);
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,120,212,0.10);
+            padding: 2em 2em 1.5em 2em;
+            min-width: 320px;
+            max-width: 400px;
+            margin-top: 2em;
+            margin-bottom: 2em;
+        }
+        .images-panel {
+            flex: 1 1 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em;
+            align-items: flex-start;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,120,212,0.07);
+            padding: 1.5em;
+            min-width: 220px;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            position: relative;
+        }
+        .banner-card {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+        .banner-img {
+            margin: 0;
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            border: 2px solid #0078d4;
+            box-shadow: 0 4px 16px rgba(0,120,212,0.18);
+        }
+        .img-label {
+            display: block;
+            font-size: 1em;
+            color: #0078d4;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .button-row {
+            display: flex;
+            flex-direction: row;
+            gap: 1em;
+            margin-top: 1em;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        h1 {
+            color: #0078d4;
+            font-weight: 700;
+            margin-bottom: 1em;
+        }
+        form {
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin: 0.7em 0 0.2em;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            max-width: 600px;
+            padding: 0.5em;
+            border: 1px solid #c8c6c4;
+            border-radius: 4px;
+            font-size: 1em;
+            background: #faf9f8;
+            color: #323130;
+            margin-bottom: 0.2em;
+            box-sizing: border-box;
+            height: 2.5em; /* Ensures consistent height */
+        }
+        button {
+            background: #0078d4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7em 1.5em;
+            font-size: 1em;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1em;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #005a9e;
+        }
+        @media (max-width: 1100px) {
+            .main-flex {
+                flex-direction: column;
+                gap: 1.5em;
+            }
+            .images-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-flex">
+            <div class="form-panel">
+                <h1>Banner Generator</h1>
+                <form id="paramsForm">
+                    <div style="display: flex; flex-direction: column; gap: 0.7em;">
+                        <div>
+                            <label for="bannerSize">Delivery Channel</label>
+                            <select id="bannerSize">
+                                <option value="160x600">Email Blade</option>
+                                <option value="300x250">Web Hero</option>
+                                <option value="320x100">Social Meta</option>
+                                <option value="540x200" selected>All</option>
+                                <option value="728x90">Social Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="head">Headline:</label>
+                            <input type="text" id="head" value="Save Now">
+                        </div>
+                        <div>
+                            <label for="sub_head">Sub Headline:</label>
+                            <input type="text" id="sub_head" value="Lorem ipsum sit dolor con amet, consectetur dolor adipiscing elit. ">
+                        </div>
+                        <div>
+                            <label for="cta">Call to Action:</label>
+                            <input type="text" id="cta" value="Buy Now">
+                        </div>
+                        <div>
+                            <label for="legal">Legal:</label>
+                            <input type="text" id="legal" value="Offer good thru 12/31/2025">
+                        </div>
+                        <div>
+                            <label for="screen">Screen:</label>
+                            <select id="screen">
+                                <option value="Cherneff/screen-2" selected>Default</option>
+                                <option value="Cherneff/copilot_screen-2">Copilot Screens</option>
+                                <option value="Cherneff/Windows-11-Snap-Desktop-Screen-1000x562">Windows 11 Snap</option>
+                                <option value="Cherneff/Windows-11-Accessibility-Screen-1000x562">Windows Accessibility</option>
+                                <option value="Cherneff/Hero-Bloom-Logo-1000x563">Hero Bloom Logo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="partner_logo">Partner Logo:</label>
+                            <select id="partner_logo">
+                                <option value="Cherneff/Best_Buy_Logo-2">Best Buy</option>
+                                <option value="Cherneff/costco_logo-1">Costco</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="offerText">Offer Text:</label>
+                            <input type="text" id="offerText" name="offerText" value="">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit">Update Images</button>
+                        <button type="button" id="submitApprovalBtn" style="background:#005a9e;">Submit for Approval</button>
+                        <button type="button" id="downloadBtn" style="background:#107c10;">Download Images</button>
+                        <button type="button" id="resetBtn" style="background:#767676;">Reset</button>
+                    </div>
+                </form>
+            </div>
+            <div class="images-panel">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Best_Buy_Logo.svg" alt="Best Buy Logo" style="position:absolute; top:16px; right:24px; height:128px; width:auto; z-index:10; pointer-events:none;">
+                <div class="banner-card">
+                    <span class="img-label">Mobile</span>
+                    <img id="bannerImg1" class="banner-img" />
+                </div>
+                <div class="banner-card">
+                    <span class="img-label">Email</span>
+                    <img id="bannerImg2" class="banner-img" />
+                </div>
+                <div class="banner-card">
+                    <span class="img-label">Social Meta</span>
+                    <img id="bannerImg3" class="banner-img" />
+                </div>
+                <div class="banner-card">
+                    <span class="img-label">Social Other</span>
+                    <img id="bannerImg4" class="banner-img" />
+                </div>
+                <div class="banner-card">
+                    <span class="img-label">Web Sidebar</span>
+                    <img id="bannerImg5" class="banner-img" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Dialog -->
+    <div id="approvalModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,120,212,0.15); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(0,120,212,0.18); padding:2em 2.5em; max-width:90vw; text-align:center; border:2px solid #0078d4;">
+            <h2 style="color:#0078d4; margin-bottom:1em;">Submitted for Review</h2>
+            <p style="font-size:1.1em; color:#323130; margin-bottom:2em;">
+                Your banner has been sent for review and you will be notified of the status within 24 hrs.
+            </p>
+            <button id="closeModalBtn" style="background:#0078d4; color:#fff; border:none; border-radius:4px; padding:0.7em 2em; font-size:1em; font-weight:600; cursor:pointer;">Close</button>
+        </div>
+    </div>
+    <!-- CTA Limit Modal -->
+    <div id="ctaLimitModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,120,212,0.15); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(0,120,212,0.18); padding:2em 2.5em; max-width:90vw; text-align:center; border:2px solid #0078d4;">
+            <h2 style="color:#0078d4; margin-bottom:1em;">Character Limit Exceeded</h2>
+            <p style="font-size:1.1em; color:#323130; margin-bottom:2em;">
+                The Call to Action field cannot exceed 15 characters.
+            </p>
+            <button id="closeCtaLimitBtn" style="background:#0078d4; color:#fff; border:none; border-radius:4px; padding:0.7em 2em; font-size:1em; font-weight:600; cursor:pointer;">Close</button>
+        </div>
+    </div>
+    <!-- Image Modal -->
+    <div id="imageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); z-index:3000; align-items:flex-start; justify-content:center; overflow:auto;">
+        <div style="background:#fff; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.18); padding:2em 2.5em; max-width:95vw; min-width:60vw; min-height:80vh; overflow:auto; text-align:center; border:2px solid #0078d4;">
+            <h2 style="color:#0078d4; margin-bottom:1em;">Banner Previews</h2>
+            <div id="modalImages" style="display:flex; flex-direction:column; gap:2em; align-items:center; width:100%;">
+                <img id="modalBannerImg" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg2" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg3" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg4" style="width:auto; height:auto; max-width:100%; display:block;">
+                <img id="modalBannerImg5" style="width:auto; height:auto; max-width:100%; display:block;">
+            </div>
+            <button id="closeImageModalBtn" style="background:#0078d4; color:#fff; border:none; border-radius:4px; padding:0.7em 2em; font-size:1em; font-weight:600; cursor:pointer; margin-top:2em;">Close</button>
+        </div>
+    </div>
+    <!-- Single Image Modal -->
+    <div id="singleImageModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:5000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:12px; box-shadow:0 8px 32px rgba(0,120,212,0.18); padding:2em; max-width:95vw; max-height:95vh; display:flex; flex-direction:column; align-items:center;">
+            <span id="modalImgLabel" class="img-label" style="margin-bottom:1em;"></span>
+            <img id="modalPreviewImg" style="max-width:90vw; max-height:80vh; border:3px solid #0078d4; box-shadow:0 4px 16px rgba(0,120,212,0.18); background:#fff;" />
+            <div style="display:flex; gap:1em; margin-top:2em;">
+                <button id="downloadSingleImageBtn" style="background:#107c10; color:#fff; border:none; border-radius:6px; padding:0.9em 2em; font-size:1.1em; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(0,120,212,0.10);">Download</button>
+                <button id="closeSingleImageModalBtn" style="background:#0078d4; color:#fff; border:none; border-radius:6px; padding:0.9em 2em; font-size:1.1em; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(0,120,212,0.10);">Close</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('paramsForm');
+        const baseUrl = "https://s7d1.scene7.com/is/image/Cherneff/Test-1";
+        const downloadBtn = document.getElementById('downloadBtn');
+        const submitApprovalBtn = document.getElementById('submitApprovalBtn');
+        const approvalModal = document.getElementById('approvalModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const ctaInput = document.getElementById('cta');
+        const ctaLimitModal = document.getElementById('ctaLimitModal');
+        const closeCtaLimitBtn = document.getElementById('closeCtaLimitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const offerTextValue = document.getElementById('offerText') ? document.getElementById('offerText').value : '';
+            const offerParam = offerTextValue.trim() === '' ? '1' : '0';
+            const params = [
+                ['$screen', document.getElementById('screen').value],
+                ['$head', document.getElementById('head').value],
+                ['$sub_head', document.getElementById('sub_head').value],
+                ['$cta', document.getElementById('cta').value],
+                ['$legal', document.getElementById('legal').value],
+                ['$partner_logo', document.getElementById('partner_logo').value],
+                ['$wid', document.getElementById('wid') ? document.getElementById('wid').value : ''],
+                ['$hei', document.getElementById('hei') ? document.getElementById('hei').value : ''],
+                ['$qlt', document.getElementById('qlt') ? document.getElementById('qlt').value : ''],
+                ['$fit', document.getElementById('fit') ? document.getElementById('fit').value : ''],
+                ['$offerText', offerTextValue], // Always include offerText, even if empty
+                ['$offer', offerParam]
+            ];
+            // Always include offerText, even if empty
+            let query = params
+                .filter(([k, v]) => k === '$offerText' || (v !== undefined && v !== null && v.toString().trim() !== ''))
+                .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
+                .join('&');
+            // Update images in the images panel
+            document.getElementById('bannerImg1').src = `${baseUrl}?${query}`;
+            document.getElementById('bannerImg2').src = `https://s7d1.scene7.com/is/image/Cherneff/728x90?${query}`;
+            document.getElementById('bannerImg3').src = `https://s7d1.scene7.com/is/image/Cherneff/300x250?${query}`;
+            document.getElementById('bannerImg4').src = `https://s7d1.scene7.com/is/image/Cherneff/320x100?${query}`;
+            document.getElementById('bannerImg5').src = `https://s7d1.scene7.com/is/image/Cherneff/160x600?${query}`;
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            // Download the current image as a file using fetch and blob to force browser download
+            fetch(img.src, {mode: 'cors'})
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'banner-image.jpg';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert('Failed to download image.');
+                });
+        });
+
+        // Approval modal logic (directly in main script block, no duplicate declarations)
+        if (submitApprovalBtn && approvalModal) {
+            submitApprovalBtn.addEventListener('click', function() {
+                approvalModal.style.display = 'flex';
+            });
+        }
+        if (closeModalBtn && approvalModal) {
+            closeModalBtn.addEventListener('click', function() {
+                approvalModal.style.display = 'none';
+            });
+        }
+        if (approvalModal) {
+            approvalModal.addEventListener('click', function(e) {
+                if (e.target === approvalModal) {
+                    approvalModal.style.display = 'none';
+                }
+            });
+        }
+
+        ctaInput.addEventListener('input', function() {
+            if (ctaInput.value.length > 15) {
+                ctaLimitModal.style.display = 'flex';
+                ctaInput.value = ctaInput.value.slice(0, 15);
+            }
+        });
+
+        closeCtaLimitBtn.addEventListener('click', function() {
+            ctaLimitModal.style.display = 'none';
+        });
+
+        resetBtn.addEventListener('click', function() {
+            // Set default values
+            document.getElementById('bannerSize').value = "540x200";
+            document.getElementById('head').value = "Save Now";
+            document.getElementById('sub_head').value = "Lorem ipsum sit dolor con amet, consectetur dolor adipiscing elit. ";
+            document.getElementById('cta').value = "Buy Now";
+            document.getElementById('legal').value = "Offer good thru 12/31/2025";
+            document.getElementById('screen').value = "Cherneff/screen-2";
+            document.getElementById('partner_logo').value = "Cherneff/Best_Buy_Logo-2";
+            // Update images to default
+            const defaultQuery = "$screen=Cherneff/screen-2&$sub_head=Lorem%20ipsum%20sit%20dolor%20con%20amet%2C%20consectetur%20dolor%20adipiscing%20elit.%20&$head=Save%20Now&$cta=Buy%20Now&$legal=Offer%20good%20thru%2012%2F31%2F2025&$partner_logo=Cherneff/Best_Buy_Logo-2";
+            document.getElementById('bannerImg1').src = `https://s7d1.scene7.com/is/image/Cherneff/Test-1?${defaultQuery}`;
+            document.getElementById('bannerImg2').src = `https://s7d1.scene7.com/is/image/Cherneff/728x90?${defaultQuery}`;
+            document.getElementById('bannerImg3').src = `https://s7d1.scene7.com/is/image/Cherneff/300x250?${defaultQuery}`;
+            document.getElementById('bannerImg4').src = `https://s7d1.scene7.com/is/image/Cherneff/320x100?${defaultQuery}`;
+            document.getElementById('bannerImg5').src = `https://s7d1.scene7.com/is/image/Cherneff/160x600?${defaultQuery}`;
+        });
+
+        // Modal close button
+        document.getElementById('closeImageModalBtn').onclick = function() {
+            document.getElementById('imageModal').style.display = 'none';
+        };
+        // Optional: Close modal when clicking outside the dialog
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === document.getElementById('imageModal')) {
+                document.getElementById('imageModal').style.display = 'none';
+            }
+        });
+        // Modal logic for single image preview
+        const singleImageModal = document.getElementById('singleImageModal');
+        const modalPreviewImg = document.getElementById('modalPreviewImg');
+        const closeSingleImageModalBtn = document.getElementById('closeSingleImageModalBtn');
+        const downloadSingleImageBtn = document.getElementById('downloadSingleImageBtn');
+        const modalImgLabel = document.getElementById('modalImgLabel');
+
+        function attachSingleImageModalListeners() {
+            [1,2,3,4,5].forEach(function(i) {
+                var imgEl = document.getElementById('bannerImg'+i);
+                var labelEl = imgEl && imgEl.previousElementSibling && imgEl.previousElementSibling.classList.contains('img-label') ? imgEl.previousElementSibling : null;
+                if (imgEl) {
+                    imgEl.onclick = function() {
+                        modalPreviewImg.src = this.src;
+                        modalImgLabel.textContent = labelEl ? labelEl.textContent : '';
+                        singleImageModal.style.display = 'flex';
+                    };
+                }
+            });
+        }
+        attachSingleImageModalListeners();
+        if (closeSingleImageModalBtn) {
+            closeSingleImageModalBtn.onclick = function() {
+                singleImageModal.style.display = 'none';
+            };
+        }
+        if (singleImageModal) {
+            singleImageModal.addEventListener('click', function(e) {
+                if (e.target === singleImageModal) {
+                    singleImageModal.style.display = 'none';
+                }
+            });
+        }
+        if (downloadSingleImageBtn && modalPreviewImg) {
+            downloadSingleImageBtn.onclick = function() {
+                const imgUrl = modalPreviewImg.src;
+                fetch(imgUrl, {mode: 'cors'})
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = 'banner-image.jpg';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    })
+                    .catch(() => {
+                        alert('Failed to download image.');
+                    });
+            };
+        }
+    </script>
+</body>
+</html>
